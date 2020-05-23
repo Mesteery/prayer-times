@@ -1,0 +1,37 @@
+{
+  "name": "prayer-times.js",
+  "version": "1.5.2",
+  "description": "A module to get the prayer times",
+  "homepage": "https://github.com/mestery69/prayer-times#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mestery69/prayer-times.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mestery69/prayer-times/issues"
+  },
+  "main": "./index.js",
+  "runkitExampleFilename": "./example.js",
+  "author": "mestery69",
+  "license": "MIT",
+  "keywords": [
+    "islam",
+    "muslim",
+    "prayer-times.js",
+    "prayertimes.js",
+    "prayer-times",
+    "pray-times",
+    "prayer-time",
+    "pray-time",
+    "prayerstimes",
+    "prayerstime",
+    "praytime",
+    "prayertime",
+    "prayertimes",
+    "praytimes",
+    "prayers",
+    "prayer",
+    "pray",
+    "adhan"
+  ]
+}
