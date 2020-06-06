@@ -140,15 +140,15 @@ class PrayerTimes {
     return this.computeTimes();
   }
   getMonthTimes(year, month, coords, timezone, dst, format) {
-    return Array(new Date(year, month + 1, 0).getDate()).map(d =>
+    return Array(new Date(year, month + 1, 0).getDate()).map((d, i) =>
       ({
         times: this.getTimes(date, coords, timezone, dst, format),
-        date: new Date(year, month, d)
+        date: new Date(year, month, i + 1)
       })
     )
   }
   getYearTimes(year, coords, timezone, dst, format) {
-    return Array(12).map(m => this.getMonthTimes(year, m, coords, timezone, dst, format))
+    return Array(12).map((m, i) => this.getMonthTimes(year, i + 1, coords, timezone, dst, format))
   }
   getFormattedTime(time, format, suffixes) {
     if (isNaN(time))
