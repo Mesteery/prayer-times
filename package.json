@@ -1,6 +1,6 @@
 {
   "name": "prayer-times.js",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "A module to get the prayer times",
   "homepage": "https://github.com/mestery69/prayer-times#readme",
   "repository": {
@@ -10,7 +10,10 @@
   "bugs": {
     "url": "https://github.com/mestery69/prayer-times/issues"
   },
-  "main": "./index.js",
+  "scripts": {
+    "build": "gulp"
+  },
+  "main": "./dist/index.js",
   "runkitExampleFilename": "./example.js",
   "author": "mestery69",
   "license": "MIT",
@@ -33,5 +36,13 @@
     "prayer",
     "pray",
     "adhan"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2"
+  }
 }
