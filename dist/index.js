@@ -244,7 +244,10 @@ var PrayerTimes = /*#__PURE__*/function () {
     }
   }, {
     key: "getTimes",
-    value: function getTimes(date, coords, timezone, dst, format) {
+    value: function getTimes(date, coords) {
+      var timezone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'auto';
+      var dst = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'auto';
+      var format = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '24h';
       this.lat = 1 * coords[0];
       this.lng = 1 * coords[1];
       this.elv = coords[2] ? 1 * coords[2] : 0;
@@ -258,33 +261,24 @@ var PrayerTimes = /*#__PURE__*/function () {
     }
   }, {
     key: "getMonthTimes",
-    value: function getMonthTimes(month, year, coords, timezone, dst, format) {
-      var lastDay = new Date(year, month + 1, 0).getDate();
-      var days = [];
+    value: function getMonthTimes(year, month, coords, timezone, dst, format) {
+      var _this = this;
 
-      for (var i = 1; i <= lastDay; i++) {
-        var date = new Date(year, month, i);
-        var times = this.getTimes(date, coords, timezone, dst, format);
-        var rs = {
-          times: times,
-          date: date.getTime()
+      return Array(new Date(year, month + 1, 0).getDate()).map(function (d) {
+        return {
+          times: _this.getTimes(date, coords, timezone, dst, format),
+          date: new Date(year, month, d)
         };
-        days.push(rs);
-      }
-
-      return days;
+      });
     }
   }, {
     key: "getYearTimes",
     value: function getYearTimes(year, coords, timezone, dst, format) {
-      var months = [];
+      var _this2 = this;
 
-      for (var i = 0; i <= 11; i++) {
-        var rs = this.getMonthTimes(i, year, coords, timezone, dst, format);
-        months.push(rs);
-      }
-
-      return months;
+      return Array(12).map(function (m) {
+        return _this2.getMonthTimes(year, m, coords, timezone, dst, format);
+      });
     }
   }, {
     key: "getFormattedTime",

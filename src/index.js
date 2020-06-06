@@ -123,7 +123,7 @@ class PrayerTimes {
   getSetting() { return this.setting; }
   getOffsets() { return this.offset; }
   getDefaults() { return this.methods; }
-  getTimes(date, coords, timezone, dst, format) {
+  getTimes(date, coords, timezone = 'auto', dst = 'auto', format = '24h') {
     this.lat = 1 * coords[0];
     this.lng = 1 * coords[1];
     this.elv = coords[2] ? 1 * coords[2] : 0;
@@ -139,28 +139,16 @@ class PrayerTimes {
 
     return this.computeTimes();
   }
-  getMonthTimes(month, year, coords, timezone, dst, format) {
-    let lastDay = new Date(year, month + 1, 0).getDate()
-    let days = []
-    for (let i = 1; i <= lastDay; i++) {
-      let date = new Date(year, month, i)
-      let times = this.getTimes(date, coords, timezone, dst, format)
-      let res = {
-        times: times,
-        date: date
-      }
-      days.push(res)
-    }
-
-    return days
+  getMonthTimes(year, month, coords, timezone, dst, format) {
+    return Array(new Date(year, month + 1, 0).getDate()).map(d =>
+      ({
+        times: this.getTimes(date, coords, timezone, dst, format),
+        date: new Date(year, month, d)
+      })
+    )
   }
   getYearTimes(year, coords, timezone, dst, format) {
-    let months = []
-    for (let i = 0; i <= 11; i++) {
-      let rs = this.getMonthTimes(i, year, coords, timezone, dst, format)
-      months.push(rs)
-    }
-    return months
+    return Array(12).map(m => this.getMonthTimes(year, m, coords, timezone, dst, format))
   }
   getFormattedTime(time, format, suffixes) {
     if (isNaN(time))
