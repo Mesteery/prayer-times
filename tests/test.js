@@ -1,5 +1,5 @@
 const assert = require('assert');
-const PrayerTimes = require('../src/index');
+const PrayerTimes = require('../dist/index');
 
 describe('PrayerTimes', () => {
   const prayerManager = new PrayerTimes()
