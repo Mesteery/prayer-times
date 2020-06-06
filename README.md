@@ -35,7 +35,7 @@ ___
 
 **Browser**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.5.4/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.1/dist/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
 <script>
   const prayTimes = new PrayerTimes('MWL')
   let lat = 43
