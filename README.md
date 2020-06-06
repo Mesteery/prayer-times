@@ -30,12 +30,13 @@ ___
   * `Karachi`: University of Islamic Sciences, Karachi (Fajr: 18, Isha: 18)
   * `Tehran`: Institute of Geophysics, University of Tehran : (Fajr: 17.7, Isha: 14, Maghrib: 4.5, Midnight: 'Jafari')
   * `Jafari`: Shia Ithna-Ashari, Leva Institute, Qum : (Fajr: 16, Isha: 14, Maghrib: 4, Midnight: 'Jafari')
+  * `JAKIM`: Jabatan Kemajuan Islam Malaysia : (Fajr: 20, Isha: 18)
 
 * **Examples :**
 
 **Browser**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.1/dist/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.3/dist/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
 <script>
   const prayTimes = new PrayerTimes('MWL')
   let lat = 43
