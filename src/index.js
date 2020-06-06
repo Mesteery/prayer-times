@@ -145,11 +145,11 @@ class PrayerTimes {
     for (let i = 1; i <= lastDay; i++) {
       let date = new Date(year, month, i)
       let times = this.getTimes(date, coords, timezone, dst, format)
-      let rs = {
+      let res = {
         times: times,
-        date: date.getTime()
+        date: date
       }
-      days.push(rs)
+      days.push(res)
     }
 
     return days
