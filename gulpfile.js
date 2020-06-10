@@ -6,7 +6,8 @@ const rename = require('gulp-rename');
 gulp.task('default', () => {
   return gulp.src('src/index.js')
     .pipe(babel({
-      presets: ['@babel/env']
+      presets: ['@babel/env'],
+      plugins: ['@babel/plugin-proposal-class-properties']
     }))
     .pipe(gulp.dest('dist'))
     .pipe(uglify())
