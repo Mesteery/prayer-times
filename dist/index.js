@@ -590,15 +590,21 @@ var PrayerManager = /*#__PURE__*/function () {
   return PrayerManager;
 }();
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = {
-  PrayerManager: PrayerManager,
-  Prayer: Prayer
-};else if (typeof define === 'function' && define.amd) define([], function () {
-  return {
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = {
     PrayerManager: PrayerManager,
     Prayer: Prayer
   };
-});else window.PrayerTimes = {
-  PrayerManager: PrayerManager,
-  Prayer: Prayer
-};
+} else if (typeof define === 'function' && define.amd) {
+  define([], function () {
+    return {
+      PrayerManager: PrayerManager,
+      Prayer: Prayer
+    };
+  });
+} else {
+  window.PrayerTimes = {
+    PrayerManager: PrayerManager,
+    Prayer: Prayer
+  };
+}
