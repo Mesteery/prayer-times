@@ -10,16 +10,24 @@
 ___
 ## Usage
 
+### PrayerManager :
 * **Interface :**
-  * `getTimes (date: Date | [year: number, month: number, day: number], coordinates: [lat: number, lng: number, elevation: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float')` : get prayer times for the given day
-  * `getMonthTimes (year: number, month: number, coordinates: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', est?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float')` : get prayer times for the given month of specified year
-  * `getYearTimes (year: number, coordinates: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float')` : get prayer times for the given year
+  * `getTimes (date: Date | [year: number, month: number, day: number] | timestamp: number, coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float'): Prayer[]` : get prayer times for the given day
+  * `getMonthTimes ([year: number, month: number], coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', est?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float'): Prayer[][]` : get prayer times for the given month of specified year
+  * `getYearTimes (year: number, coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float')` : get prayer times for the given year
   * `method` : get calculation method
-  * `method(method: 'MWL' | 'ISNA' | 'MF' | 'Egypt' | 'Makkah' | 'Karachi' | 'Tehran' | 'Jafari')` : set calculation method 
-  * `adjust(parameters)` : adjust calculation parameters	
-  * `tune(offsets)` : tune times by given offsets 
-  * `getSetting()` : get current calculation parameters
-  * `getOffsets()` : get current time offsets
+  * `method(method: 'MWL' | 'ISNA' | 'MF' | 'Egypt' | 'Makkah' | 'Karachi' | 'Tehran' | 'Jafari' | 'JAKIM'): Prayer[][]` : set calculation method 
+  * `adjust(parameters): void` : adjust calculation parameters	
+  * `tune(offsets): void` : tune times by given offsets 
+  * `getSetting(): any (see code)` : get current calculation parameters
+  * `getOffsets(): any (see code)` : get current time offsets
+
+### Prayer
+* **Properties :**
+  * [static] `PrayerNames: object`: A object of prayers identifier and it's name
+  * `name: string`: The identifier of the prayer
+  * `formatted: string`: The formatted prayer time
+  * `date: Date`: The **Date** of the prayer
 
 * **Calculation Methods :**
   * `MWL`: Muslim World League : (Fajr: 18, Isha: 17)
@@ -36,38 +44,42 @@ ___
 
 **Browser**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.3/dist/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.6/dist/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
 <script>
-  const prayTimes = new PrayerTimes('MWL')
+  const prayTimes = new PrayerTimes.PrayerManager('MWL')
   let lat = 43
   let lng = -80
   let times = prayTimes.getTimes(new Date(), [lat, lng], -5) // Get prayers times for "today" at lat: 43, long: -80 with -5 timezone
-  console.log('Sunrise : ' + times.sunrise)
+  console.log('Sunrise : ', times.find(t => t.name === "sunrise"))
+  // OR
+  console.log('Sunrise : ', times[2])
 </script>
 ```
 **NodeJS**
 ```js
-const PrayerTimes = require("prayer-times.js")
-let prayTimes = new PrayerTimes('ISNA')
+const { PrayerManager } = require("prayer-times.js")
+let prayTimes = new PrayerManager('ISNA')
 let lat = 43
 let lng = -80
 let times = prayTimes.getTimes(new Date(), [lat, lng], -5) // Get prayers times for "today" at lat: 43, long: -80 with -5 timezone
-console.log('Sunrise : ' + times.sunrise)
+console.log('Sunrise : ', times.find(t => t.name === "sunrise"))
+// OR
+console.log('Sunrise : ', times[2])
 ```
 ```js
-const PrayerTimes = require("prayer-times.js")
-let prayTimes = new PrayerTimes()
+const {} PrayerManager } = require("prayer-times.js")
+let prayTimes = new PrayerManager()
 console.log(prayTimes.method) // get the method, this will print MWL because it's the default method
 prayTimes.method = "ISNA" // set the method : ISNA
-let thisMonthTimes = prayTimes.getMonthTimes(new Date().getFullYear(), new Date().getMonth(), [43, -80], 'auto', 'auto') // Get prayers times for "this month" at lat: 43, long: -80 with auto timezone and dst
-console.log('Fajr : ' + thisMonthTimes[0].times.fajr) // print fajr time for the first day of month
-console.log(thisMonthTimes[0].date) // get the timestamp of the first day
+let thisMonthTimes = prayTimes.getMonthTimes([new Date().getFullYear(), new Date().getMonth() + 1 /* WARNING, THE MONTH INDEX MUST BE 1-12 AND NOT 0-11 */], [43, -80]) // Get prayers times for "this month" at lat: 43, long: -80 with auto timezone and auto dst (default values)
+console.log('Fajr : ', thisMonthTimes[0][1]) // print fajr Prayer for the first day of this month
+console.log(thisMonthTimes[0][1].date) // get the Date of fajr of first day of this month
 ```
 ```js
-const PrayerTimes = require("prayer-times.js")
-let prayTimes = new PrayerTimes()
+const { PrayerManager } = require("prayer-times.js")
+let prayTimes = new PrayerManager()
 console.log(prayTimes.getOffsets()) // get the offsets
-let thisYearTimes = prayTimes.getTimes(new Date().getFullYear(), [43, -80], 'auto', 'auto', "12h") // Get prayers times for "this year" at lat: 43, long: -80 with auto timezone and dst with 12h time format
-console.log('Fajr : ' + thisYearTimes[0][0].times.fajr) // print fajr time for the first day of the first month
-console.log(thisYearTimes[0][0].date) // get the timestamp of the first day of the first month
+let thisYearTimes = prayTimes.getTimes(new Date().getFullYear(), [43, -80], 1, 0, "12h") // Get prayers times for "this year" at lat: 43, long: -80 with "1" timezone and 0 dst with 12h time format
+console.log('Fajr : ', thisYearTimes[0][0][1]) // print fajr Prayer for the first day of the first month of this year
+console.log(thisYearTimes[0][0][1].date) // get the Date of fajr of the first day of the first month of this year
 ```
