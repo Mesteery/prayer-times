@@ -390,6 +390,10 @@ class PrayerManager {
   }
 }
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = { PrayerManager, Prayer };
-else if (typeof define === 'function' && define.amd) define([], () => ({ PrayerManager, Prayer }));
-else window.PrayerTimes = { PrayerManager, Prayer };
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = { PrayerManager, Prayer };
+} else if (typeof define === 'function' && define.amd) {
+  define([], () => ({ PrayerManager, Prayer }));
+} else {
+  window.PrayerTimes = { PrayerManager, Prayer };
+}
