@@ -1,105 +1,107 @@
 "use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var DMath = /*#__PURE__*/function () {
-  function DMath() {
-    _classCallCheck(this, DMath);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var DMath = {
+  dtr: function dtr(d) {
+    return d * Math.PI / 180.0;
+  },
+  rtd: function rtd(r) {
+    return r * 180.0 / Math.PI;
+  },
+  sin: function sin(d) {
+    return Math.sin(this.dtr(d));
+  },
+  cos: function cos(d) {
+    return Math.cos(this.dtr(d));
+  },
+  tan: function tan(d) {
+    return Math.tan(this.dtr(d));
+  },
+  arcsin: function arcsin(d) {
+    return this.rtd(Math.asin(d));
+  },
+  arccos: function arccos(d) {
+    return this.rtd(Math.acos(d));
+  },
+  arctan: function arctan(d) {
+    return this.rtd(Math.atan(d));
+  },
+  arccot: function arccot(x) {
+    return this.rtd(Math.atan(1 / x));
+  },
+  arctan2: function arctan2(y, x) {
+    return this.rtd(Math.atan2(y, x));
+  },
+  fixAngle: function fixAngle(a) {
+    return this.fix(a, 360);
+  },
+  fixHour: function fixHour(a) {
+    return this.fix(a, 24);
+  },
+  fix: function fix(a, b) {
+    a = a - b * Math.floor(a / b);
+    return a < 0 ? a + b : a;
   }
+};
 
-  _createClass(DMath, null, [{
-    key: "dtr",
-    value: function dtr(d) {
-      return d * Math.PI / 180.0;
-    }
-  }, {
-    key: "rtd",
-    value: function rtd(r) {
-      return r * 180.0 / Math.PI;
-    }
-  }, {
-    key: "sin",
-    value: function sin(d) {
-      return Math.sin(this.dtr(d));
-    }
-  }, {
-    key: "cos",
-    value: function cos(d) {
-      return Math.cos(this.dtr(d));
-    }
-  }, {
-    key: "tan",
-    value: function tan(d) {
-      return Math.tan(this.dtr(d));
-    }
-  }, {
-    key: "arcsin",
-    value: function arcsin(d) {
-      return this.rtd(Math.asin(d));
-    }
-  }, {
-    key: "arccos",
-    value: function arccos(d) {
-      return this.rtd(Math.acos(d));
-    }
-  }, {
-    key: "arctan",
-    value: function arctan(d) {
-      return this.rtd(Math.atan(d));
-    }
-  }, {
-    key: "arccot",
-    value: function arccot(x) {
-      return this.rtd(Math.atan(1 / x));
-    }
-  }, {
-    key: "arctan2",
-    value: function arctan2(y, x) {
-      return this.rtd(Math.atan2(y, x));
-    }
-  }, {
-    key: "fixAngle",
-    value: function fixAngle(a) {
-      return this.fix(a, 360);
-    }
-  }, {
-    key: "fixHour",
-    value: function fixHour(a) {
-      return this.fix(a, 24);
-    }
-  }, {
-    key: "fix",
-    value: function fix(a, b) {
-      a = a - b * Math.floor(a / b);
-      return a < 0 ? a + b : a;
-    }
-  }]);
+var Prayer = function Prayer(name, date, formatted) {
+  _classCallCheck(this, Prayer);
 
-  return DMath;
-}();
+  this.name = name;
+  this.date = date;
+  this.formatted = formatted;
+};
 
-var PrayerTimes = /*#__PURE__*/function () {
-  function PrayerTimes() {
+_defineProperty(Prayer, "TimeNames", {
+  imsak: 'Imsak',
+  fajr: 'Fajr',
+  sunrise: 'Sunrise',
+  dhuhr: 'Dhuhr',
+  asr: 'Asr',
+  sunset: 'Sunset',
+  maghrib: 'Maghrib',
+  isha: 'Isha',
+  midnight: 'Midnight'
+});
+
+var PrayerManager = /*#__PURE__*/function () {
+  /**
+   * Create a PrayerManager
+   * @param {string} [method=MWL] The calculation method to calculate prayer times
+   */
+  function PrayerManager() {
     var method = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "MWL";
 
-    _classCallCheck(this, PrayerTimes);
+    _classCallCheck(this, PrayerManager);
 
     this._method = method;
-    this.timeNames = {
-      imsak: 'Imsak',
-      fajr: 'Fajr',
-      sunrise: 'Sunrise',
-      dhuhr: 'Dhuhr',
-      asr: 'Asr',
-      sunset: 'Sunset',
-      maghrib: 'Maghrib',
-      isha: 'Isha',
-      midnight: 'Midnight'
-    };
     this.methods = {
       MWL: {
         name: 'Muslim World League',
@@ -194,7 +196,7 @@ var PrayerTimes = /*#__PURE__*/function () {
     this.defParams = this.defaultParams;
 
     for (var i in this.methods) {
-      this.params = this.methods[i].params;
+      this.params = this.methods[i];
 
       for (var j in this.defParams) {
         if (typeof this.params[j] == 'undefined') this.params[j] = this.defParams[j];
@@ -203,28 +205,25 @@ var PrayerTimes = /*#__PURE__*/function () {
 
     this.calcMethod = this.methods[method] ? method : "MWL";
     this.params = this.methods[this.calcMethod].params;
+    this.adjust(this.parms);
 
-    for (var id in this.params) {
-      this.setting[id] = this.params[id];
-    }
-
-    for (var _i in this.timeNames) {
+    for (var _i in Prayer.TimeNames) {
       this.offset[_i] = 0;
     }
   }
 
-  _createClass(PrayerTimes, [{
+  _createClass(PrayerManager, [{
     key: "adjust",
     value: function adjust(params) {
       for (var id in params) {
-        this.setting[id] = this.params[id];
+        this.setting[id] = params[id];
       }
     }
   }, {
     key: "tune",
     value: function tune(timeOffsets) {
-      for (var i in this.timeOffsets) {
-        this.offset[i] = this.timeOffsets[i];
+      for (var i in timeOffsets) {
+        this.offset[i] = timeOffsets[i];
       }
     }
   }, {
@@ -242,56 +241,93 @@ var PrayerTimes = /*#__PURE__*/function () {
     value: function getDefaults() {
       return this.methods;
     }
+    /**
+     * Get the prayer times for a specific date
+     * @param {([number, number, number]|Date|number)} [date=new Date()) The date you want prayer times ([year, month, day] or Date or timestamp)
+     * @param {[number, number, number]} coords The coordinates at which you want the prayer times (elevation is optionnal)
+     * @param {number|"auto"} [timezone=auto] The timezone
+     * @param {(1|0|"auto")} [dst=auto"] The Daylight Saving Times
+     * @param {("24h"|"12h"|"12hNS"|"Float")} [format=24h] The ouput format of prayer times
+     * @returns {Prayer[]} A array of prayer times
+     */
+
   }, {
     key: "getTimes",
-    value: function getTimes(date, coords) {
+    value: function getTimes() {
+      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
+      var coords = arguments.length > 1 ? arguments[1] : undefined;
       var timezone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'auto';
       var dst = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'auto';
       var format = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '24h';
-      this.lat = 1 * coords[0];
-      this.lng = 1 * coords[1];
-      this.elv = coords[2] ? 1 * coords[2] : 0;
+      this.lat = Number(coords[0]);
+      this.lng = Number(coords[1]);
+      this.elv = coords[2] ? Number(coords[2]) : 0;
       this.timeFormat = format || this.timeFormat;
-      if (date.constructor === Date) date = [date.getFullYear(), date.getMonth() + 1, date.getDate()];
-      if (typeof timezone == 'undefined' || timezone == 'auto') timezone = this.getTimeZone(date);
-      if (typeof dst == 'undefined' || dst == 'auto') dst = this.getDst(date);
-      this.timeZone = 1 * timezone + (1 * dst ? 1 : 0);
+      if (typeof date === "number") date = new Date(date);
+      if (date instanceof Date) date = [date.getFullYear(), date.getMonth() + 1, date.getDate()];
+      if (timezone === 'auto') timezone = this.getTimeZone(date);
+      if (dst === 'auto') dst = this.getDst(date);
+      this.timeZone = Number(timezone) + (Number(dst) ? 1 : 0);
       this.jDate = this.julian(date[0], date[1], date[2]) - this.lng / (15 * 24);
-      return this.computeTimes();
+      return this.computeTimes(date);
     }
+    /**
+     * Get all prayer times for a specific month of a year
+     * @param {[number, number]} date The month and year you want prayer times
+     * @param {[number, number, number]} coords The coordinates at which you want prayer times (elevation is optionnal)
+     * @param {string} [timezone=auto] The timezone
+     * @param {string} [dst=auto] The Daylight Saving Time
+     * @param {string} [format=24h] The output format of prayer times
+     * @returns {Prayer[][]} A array of array of prayer times
+     */
+
   }, {
     key: "getMonthTimes",
-    value: function getMonthTimes(year, month, coords, timezone, dst, format) {
+    value: function getMonthTimes(_ref, coords, timezone, dst, format) {
       var _this = this;
 
-      return Array(new Date(year, month + 1, 0).getDate()).map(function (d) {
-        return {
-          times: _this.getTimes(date, coords, timezone, dst, format),
-          date: new Date(year, month, d)
-        };
+      var _ref2 = _slicedToArray(_ref, 2),
+          year = _ref2[0],
+          month = _ref2[1];
+
+      year = Number(year);
+      month = Number(month);
+      return _toConsumableArray(Array(new Date(year, month, 0).getDate())).map(function (_, d) {
+        return _this.getTimes(new Date(year, month, d + 1), coords, timezone, dst, format);
       });
     }
+    /**
+     * Get all prayer times for a specific year
+     * @param {number} year The year you want prayer times
+     * @param {[number, number, number]} coords The coordinates at which you want prayer times (elevation is optionnal)
+     * @param {string} [timezone="auto"] The timezone
+     * @param {string} [dst="auto"] The Daylight Saving Time
+     * @param {string} [format="24h"] The output format of prayer times
+     * @returns {Prayer[][][]} A array of array of array of prayer times
+     */
+
   }, {
     key: "getYearTimes",
     value: function getYearTimes(year, coords, timezone, dst, format) {
       var _this2 = this;
 
-      return Array(12).map(function (m) {
-        return _this2.getMonthTimes(year, m, coords, timezone, dst, format);
+      if (typeof year !== "number") throw new Error("The year argument must be a number");
+      return _toConsumableArray(Array(12)).map(function (_, m) {
+        return _this2.getMonthTimes([year, m + 1], coords, timezone, dst, format);
       });
     }
   }, {
     key: "getFormattedTime",
     value: function getFormattedTime(time, format, suffixes) {
       if (isNaN(time)) return this.invalidTime;
-      if (format == 'Float') return time;
+      if (format === 'Float') return time;
       suffixes = suffixes || this.timeSuffixes;
       time = DMath.fixHour(time + 0.5 / 60); // add 0.5 minutes to round
 
       var hours = Math.floor(time);
       var minutes = Math.floor((time - hours) * 60);
-      var suffix = format == '12h' ? suffixes[hours < 12 ? 0 : 1] : '';
-      var hour = format == '24h' ? this.twoDigitsFormat(hours) : (hours + 12 - 1) % 12 + 1;
+      var suffix = format === '12h' ? suffixes[hours < 12 ? 0 : 1] : '';
+      var hour = format === '24h' ? this.twoDigitsFormat(hours) : (hours + 12 - 1) % 12 + 1;
       return hour + ':' + this.twoDigitsFormat(minutes) + (suffix ? ' ' + suffix : '');
     }
   }, {
@@ -307,7 +343,7 @@ var PrayerTimes = /*#__PURE__*/function () {
       var decl = this.sunPosition(this.jDate + time).declination;
       var noon = this.midDay(time);
       var t = 1 / 15 * DMath.arccos((-DMath.sin(angle) - DMath.sin(decl) * DMath.sin(this.lat)) / (DMath.cos(decl) * DMath.cos(this.lat)));
-      return noon + (direction == 'ccw' ? -t : t);
+      return noon + (direction === 'ccw' ? -t : t);
     }
   }, {
     key: "asrTime",
@@ -326,11 +362,11 @@ var PrayerTimes = /*#__PURE__*/function () {
       var R = 1.00014 - 0.01671 * DMath.cos(g) - 0.00014 * DMath.cos(2 * g);
       var e = 23.439 - 0.00000036 * D;
       var RA = DMath.arctan2(DMath.cos(e) * DMath.sin(L), DMath.cos(L)) / 15;
-      var eqt = q / 15 - DMath.fixHour(RA);
-      var decl = DMath.arcsin(DMath.sin(e) * DMath.sin(L));
+      var equation = q / 15 - DMath.fixHour(RA);
+      var declination = DMath.arcsin(DMath.sin(e) * DMath.sin(L));
       return {
-        declination: decl,
-        equation: eqt
+        declination: declination,
+        equation: equation
       };
     }
   }, {
@@ -372,7 +408,7 @@ var PrayerTimes = /*#__PURE__*/function () {
     }
   }, {
     key: "computeTimes",
-    value: function computeTimes() {
+    value: function computeTimes(date) {
       // default times
       var times = {
         imsak: 5,
@@ -387,12 +423,13 @@ var PrayerTimes = /*#__PURE__*/function () {
 
       for (var i = 1; i <= this.numIterations; i++) {
         times = this.computePrayerTimes(times);
+        times = this.adjustTimes(times);
+        times.midnight = this.setting.midnight == 'Jafari' ? times.sunset + this.timeDiff(times.sunset, times.fajr) / 2 : times.sunset + this.timeDiff(times.sunset, times.sunrise) / 2;
       }
 
-      times = this.adjustTimes(times);
-      times.midnight = this.setting.midnight == 'Jafari' ? times.sunset + this.timeDiff(times.sunset, times.fajr) / 2 : times.sunset + this.timeDiff(times.sunset, times.sunrise) / 2;
-      times = this.tuneTimes(times);
-      return this.modifyFormats(times);
+      times = this.tuneTimes(times); //console.log(times)
+
+      return this.modifyFormats(times, date);
     }
   }, {
     key: "adjustTimes",
@@ -403,7 +440,7 @@ var PrayerTimes = /*#__PURE__*/function () {
         times[i] += this.timeZone - this.lng / 15;
       }
 
-      if (params.highLats != 'None') times = this.adjustHighLats(times);
+      if (params.highLats !== 'None') times = this.adjustHighLats(times);
       if (this.isMin(params.imsak)) times.imsak = times.fajr - this.eval(params.imsak) / 60;
       if (this.isMin(params.maghrib)) times.maghrib = times.sunset + this.eval(params.maghrib) / 60;
       if (this.isMin(params.isha)) times.isha = times.maghrib + this.eval(params.isha) / 60;
@@ -413,11 +450,10 @@ var PrayerTimes = /*#__PURE__*/function () {
   }, {
     key: "asrFactor",
     value: function asrFactor(asrParam) {
-      var factor = {
+      return {
         Standard: 1,
         Hanafi: 2
-      }[asrParam];
-      return factor || this.eval(asrParam);
+      }[asrParam] || this.eval(asrParam);
     }
   }, {
     key: "riseSetAngle",
@@ -439,12 +475,24 @@ var PrayerTimes = /*#__PURE__*/function () {
     }
   }, {
     key: "modifyFormats",
-    value: function modifyFormats(times) {
+    value: function modifyFormats(times, _ref3) {
+      var _ref4 = _slicedToArray(_ref3, 3),
+          year = _ref4[0],
+          month = _ref4[1],
+          day = _ref4[2];
+
+      var prayers = [];
+
       for (var i in times) {
-        times[i] = this.getFormattedTime(times[i], this.timeFormat);
+        var formatted = this.getFormattedTime(times[i], this.timeFormat);
+        if (formatted === this.invalidTime) prayers.push(new Prayer(i, null, formatted));else {
+          var time = DMath.fixHour(times[i] + 0.5 / 60);
+          var hours = Math.floor(time);
+          prayers.push(new Prayer(i, new Date(year, month, day, hours, Math.floor((time - hours) * 60), 0, 0), formatted));
+        }
       }
 
-      return times;
+      return prayers;
     }
   }, {
     key: "adjustHighLats",
@@ -495,7 +543,7 @@ var PrayerTimes = /*#__PURE__*/function () {
   }, {
     key: "getDst",
     value: function getDst(date) {
-      return 1 * (this.gmtOffset(date) != this.getTimeZone(date));
+      return Number(this.gmtOffset(date) != this.getTimeZone(date));
     }
   }, {
     key: "gmtOffset",
@@ -509,12 +557,12 @@ var PrayerTimes = /*#__PURE__*/function () {
   }, {
     key: "eval",
     value: function _eval(str) {
-      return 1 * (str + '').split(/[^0-9.+-]/)[0];
+      return Number(String(str).split(/[^0-9.+-]/)[0]);
     }
   }, {
     key: "isMin",
     value: function isMin(arg) {
-      return (arg + '').indexOf('min') != -1;
+      return String(arg).indexOf('min') !== -1;
     }
   }, {
     key: "timeDiff",
@@ -529,25 +577,28 @@ var PrayerTimes = /*#__PURE__*/function () {
   }, {
     key: "method",
     set: function set(method) {
-      if (this.methods[method]) {
+      if (this.methods[String(method)]) {
         this.adjust(this.methods[method].params);
         this.calcMethod = method;
-      }
+      } else throw new Error("The method " + method + " doesn't exists");
     },
     get: function get() {
       return this.calcMethod;
     }
   }]);
 
-  return PrayerTimes;
+  return PrayerManager;
 }();
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-  module.exports = PrayerTimes;
-} else if (typeof define === 'function' && define.amd) {
-  define([], function () {
-    return PrayerTimes;
-  });
-} else {
-  window.PrayerTimes = PrayerTimes;
-}
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = {
+  PrayerManager: PrayerManager,
+  Prayer: Prayer
+};else if (typeof define === 'function' && define.amd) define([], function () {
+  return {
+    PrayerManager: PrayerManager,
+    Prayer: Prayer
+  };
+});else window.PrayerTimes = {
+  PrayerManager: PrayerManager,
+  Prayer: Prayer
+};
