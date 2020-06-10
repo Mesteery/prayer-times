@@ -24,7 +24,7 @@ ___
 
 #### Prayer
 * **Properties :**
-  * [static] `PrayerNames: object`: A object of prayers identifier and it's name
+  * [static] `TimesNames: object`: A object of prayers identifier and it's name
   * `name: string`: The identifier of the prayer
   * `formatted: string`: The formatted prayer time
   * `date: Date`: The **Date** of the prayer
@@ -44,7 +44,7 @@ ____
 
 **Browser**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.7/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.8/dist/index.min.js"></script>
 <script>
   const prayTimes = new PrayerTimes.PrayerManager('MWL')
   let lat = 43
