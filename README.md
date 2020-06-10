@@ -10,25 +10,25 @@
 ___
 ## Usage
 
-### PrayerManager :
+#### PrayerManager :
 * **Interface :**
   * `getTimes (date: Date | [year: number, month: number, day: number] | timestamp: number, coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float'): Prayer[]` : get prayer times for the given day
   * `getMonthTimes ([year: number, month: number], coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', est?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float'): Prayer[][]` : get prayer times for the given month of specified year
-  * `getYearTimes (year: number, coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float')` : get prayer times for the given year
-  * `method` : get calculation method
-  * `method(method: 'MWL' | 'ISNA' | 'MF' | 'Egypt' | 'Makkah' | 'Karachi' | 'Tehran' | 'Jafari' | 'JAKIM'): Prayer[][]` : set calculation method 
+  * `getYearTimes (year: number, coords: [lat: number, lng: number, elevation?: number], timeZone?: number | 'auto', dst?: 0 | 1 | 'auto', timeFormat?: '24h' | '12h' | '12hNS' | 'Float'): Prayer[][][]` : get prayer times for the given year
+  * `method: any (see code)` : get calculation method
+  * `method(method: 'MWL' | 'ISNA' | 'MF' | 'Egypt' | 'Makkah' | 'Karachi' | 'Tehran' | 'Jafari' | 'JAKIM'): void` : set calculation method 
   * `adjust(parameters): void` : adjust calculation parameters	
   * `tune(offsets): void` : tune times by given offsets 
   * `getSetting(): any (see code)` : get current calculation parameters
   * `getOffsets(): any (see code)` : get current time offsets
 
-### Prayer
+#### Prayer
 * **Properties :**
   * [static] `PrayerNames: object`: A object of prayers identifier and it's name
   * `name: string`: The identifier of the prayer
   * `formatted: string`: The formatted prayer time
   * `date: Date`: The **Date** of the prayer
-
+____
 * **Calculation Methods :**
   * `MWL`: Muslim World League : (Fajr: 18, Isha: 17)
   * `ISNA`: Islamic Society of North America (ISNA) : (Fajr: 15, Isha: 15)
@@ -44,7 +44,7 @@ ___
 
 **Browser**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.6/dist/index.min.js" integrity="sha384-gt7CthPlJwRTuL1/Fk9c7FjDM1nfWQ87cPM1Jt8ACvPZfPc5r4tDHIE0tOZzqhto" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/prayer-times.js@1.6.7/dist/index.min.js"></script>
 <script>
   const prayTimes = new PrayerTimes.PrayerManager('MWL')
   let lat = 43
@@ -67,7 +67,7 @@ console.log('Sunrise : ', times.find(t => t.name === "sunrise"))
 console.log('Sunrise : ', times[2])
 ```
 ```js
-const {} PrayerManager } = require("prayer-times.js")
+const { PrayerManager } = require("prayer-times.js")
 let prayTimes = new PrayerManager()
 console.log(prayTimes.method) // get the method, this will print MWL because it's the default method
 prayTimes.method = "ISNA" // set the method : ISNA
