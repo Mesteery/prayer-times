@@ -327,7 +327,7 @@ class PrayerManager {
       else {
         let time = DMath.fixHour(times[i] + 0.5 / 60);
         let hours = Math.floor(time);
-        prayers.push(new Prayer(i, new Date(Date.UTC(year, month - 1, day, hours, Math.floor((time - hours) * 60), 0, 0)), formatted));
+        prayers.push(new Prayer(i, new Date(year, month - 1, day, hours, Math.floor((time - hours) * 60), 0, 0), formatted));
       }
     }
     return prayers;

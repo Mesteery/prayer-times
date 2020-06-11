@@ -487,7 +487,7 @@ var PrayerManager = /*#__PURE__*/function () {
         if (formatted === this.invalidTime) prayers.push(new Prayer(i, null, formatted));else {
           var time = DMath.fixHour(times[i] + 0.5 / 60);
           var hours = Math.floor(time);
-          prayers.push(new Prayer(i, new Date(Date.UTC(year, month - 1, day, hours, Math.floor((time - hours) * 60), 0, 0)), formatted));
+          prayers.push(new Prayer(i, new Date(year, month - 1, day, hours, Math.floor((time - hours) * 60), 0, 0), formatted));
         }
       }
 
