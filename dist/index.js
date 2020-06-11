@@ -196,7 +196,7 @@ var PrayerManager = /*#__PURE__*/function () {
     this.defParams = this.defaultParams;
 
     for (var i in this.methods) {
-      this.params = this.methods[i];
+      this.params = this.methods[i].params;
 
       for (var j in this.defParams) {
         if (typeof this.params[j] == 'undefined') this.params[j] = this.defParams[j];
@@ -205,7 +205,7 @@ var PrayerManager = /*#__PURE__*/function () {
 
     this.calcMethod = this.methods[method] ? method : "MWL";
     this.params = this.methods[this.calcMethod].params;
-    this.adjust(this.parms);
+    this.adjust(this.params);
 
     for (var _i in Prayer.TimeNames) {
       this.offset[_i] = 0;
@@ -243,7 +243,7 @@ var PrayerManager = /*#__PURE__*/function () {
     }
     /**
      * Get the prayer times for a specific date
-     * @param {([number, number, number]|Date|number)} [date=new Date()) The date you want prayer times ([year, month, day] or Date or timestamp)
+     * @param {([number, number, number]|Date|number)} [date=new Date()] The date you want prayer times ([year, month, day] or Date or timestamp)
      * @param {[number, number, number]} coords The coordinates at which you want the prayer times (elevation is optionnal)
      * @param {number|"auto"} [timezone=auto] The timezone
      * @param {(1|0|"auto")} [dst=auto"] The Daylight Saving Times
@@ -272,7 +272,7 @@ var PrayerManager = /*#__PURE__*/function () {
       return this.computeTimes(date);
     }
     /**
-     * Get all prayer times for a specific month of a year
+     * Get all prayer times for a specific month of a year (month index must start at 1)
      * @param {[number, number]} date The month and year you want prayer times
      * @param {[number, number, number]} coords The coordinates at which you want prayer times (elevation is optionnal)
      * @param {string} [timezone=auto] The timezone
@@ -423,12 +423,11 @@ var PrayerManager = /*#__PURE__*/function () {
 
       for (var i = 1; i <= this.numIterations; i++) {
         times = this.computePrayerTimes(times);
-        times = this.adjustTimes(times);
-        times.midnight = this.setting.midnight == 'Jafari' ? times.sunset + this.timeDiff(times.sunset, times.fajr) / 2 : times.sunset + this.timeDiff(times.sunset, times.sunrise) / 2;
       }
 
-      times = this.tuneTimes(times); //console.log(times)
-
+      times = this.adjustTimes(times);
+      times.midnight = this.setting.midnight === 'Jafari' ? times.sunset + this.timeDiff(times.sunset, times.fajr) / 2 : times.sunset + this.timeDiff(times.sunset, times.sunrise) / 2;
+      times = this.tuneTimes(times);
       return this.modifyFormats(times, date);
     }
   }, {
@@ -488,7 +487,7 @@ var PrayerManager = /*#__PURE__*/function () {
         if (formatted === this.invalidTime) prayers.push(new Prayer(i, null, formatted));else {
           var time = DMath.fixHour(times[i] + 0.5 / 60);
           var hours = Math.floor(time);
-          prayers.push(new Prayer(i, new Date(year, month, day, hours, Math.floor((time - hours) * 60), 0, 0), formatted));
+          prayers.push(new Prayer(i, new Date(Date.UTC(year, month - 1, day, hours, Math.floor((time - hours) * 60), 0, 0)), formatted));
         }
       }
 
