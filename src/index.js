@@ -104,14 +104,14 @@ class PrayerManager {
     this.jDate;
     this.defParams = this.defaultParams;
     for (const i in this.methods) {
-      this.params = this.methods[i];
+      this.params = this.methods[i].params;
       for (let j in this.defParams)
         if ((typeof(this.params[j]) == 'undefined'))
           this.params[j] = this.defParams[j];
     }
     this.calcMethod = this.methods[method] ? method : "MWL";
     this.params = this.methods[this.calcMethod].params;
-    this.adjust(this.parms)
+    this.adjust(this.params)
     for (const i in Prayer.TimeNames) this.offset[i] = 0;
   }
 
@@ -142,7 +142,7 @@ class PrayerManager {
 
   /**
    * Get the prayer times for a specific date
-   * @param {([number, number, number]|Date|number)} [date=new Date()) The date you want prayer times ([year, month, day] or Date or timestamp)
+   * @param {([number, number, number]|Date|number)} [date=new Date()] The date you want prayer times ([year, month, day] or Date or timestamp)
    * @param {[number, number, number]} coords The coordinates at which you want the prayer times (elevation is optionnal)
    * @param {number|"auto"} [timezone=auto] The timezone
    * @param {(1|0|"auto")} [dst=auto"] The Daylight Saving Times
@@ -165,7 +165,7 @@ class PrayerManager {
   }
 
   /**
-   * Get all prayer times for a specific month of a year
+   * Get all prayer times for a specific month of a year (month index must start at 1)
    * @param {[number, number]} date The month and year you want prayer times
    * @param {[number, number, number]} coords The coordinates at which you want prayer times (elevation is optionnal)
    * @param {string} [timezone=auto] The timezone
@@ -283,26 +283,26 @@ class PrayerManager {
       maghrib: 18,
       isha: 18
     };
-    for (let i = 1; i <= this.numIterations; i++) {
-      times = this.computePrayerTimes(times);
-      times = this.adjustTimes(times);
-      times.midnight = (this.setting.midnight == 'Jafari') ? times.sunset + this.timeDiff(times.sunset, times.fajr) / 2 : times.sunset + this.timeDiff(times.sunset, times.sunrise) / 2;
-    }
+    for (let i = 1; i <= this.numIterations; i++) times = this.computePrayerTimes(times);
+
+    times = this.adjustTimes(times);
+    times.midnight = (this.setting.midnight === 'Jafari') ? times.sunset + this.timeDiff(times.sunset, times.fajr) / 2 : times.sunset + this.timeDiff(times.sunset, times.sunrise) / 2;
+        
     times = this.tuneTimes(times);
-    //console.log(times)
     return this.modifyFormats(times, date);
   }
   adjustTimes(times) {
     let params = this.setting;
     for (const i in times) times[i] += this.timeZone - this.lng / 15;
-
+        
     if (params.highLats !== 'None') times = this.adjustHighLats(times);
-
-    if (this.isMin(params.imsak)) times.imsak = times.fajr - this.eval(params.imsak) / 60;
+        
+    if (this.isMin(params.imsak)) times.imsak = times.fajr- this.eval(params.imsak) / 60;
     if (this.isMin(params.maghrib)) times.maghrib = times.sunset + this.eval(params.maghrib) / 60;
     if (this.isMin(params.isha)) times.isha = times.maghrib + this.eval(params.isha) / 60;
-    times.dhuhr += this.eval(params.dhuhr) / 60;
-
+    
+    times.dhuhr += this.eval(params.dhuhr) / 60; 
+  
     return times;
   }
   asrFactor(asrParam) {
@@ -327,7 +327,7 @@ class PrayerManager {
       else {
         let time = DMath.fixHour(times[i] + 0.5 / 60);
         let hours = Math.floor(time);
-        prayers.push(new Prayer(i, new Date(year, month, day, hours, Math.floor((time - hours) * 60), 0, 0), formatted));
+        prayers.push(new Prayer(i, new Date(Date.UTC(year, month - 1, day, hours, Math.floor((time - hours) * 60), 0, 0)), formatted));
       }
     }
     return prayers;
